@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Romeo & Juliet</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --sage: #708238;
+            --cream: #f4f6f0;
+            --gold: #d4af37;
+            --dark: #2c302e;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background-color: var(--cream);
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant+Garamond', serif;
+        }
+
+        .cursive {
+            font-family: 'Sacramento', cursive;
+            color: var(--gold);
+        }
+
+        /* Hero Cover Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000') no-repeat center center;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 5px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--sage);
+        }
+
+        /* Foto Mempelai Lingkaran Pas di HP */
+        .couple-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Kotak Hitung Mundur Rapi di Layar Kecil */
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        .countdown-item {
+            background: white;
+            padding: 10px 5px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-bottom: 3px solid var(--sage);
+            font-size: 0.75rem;
+        }
+
+        .countdown-item span {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: block;
+            color: var(--sage);
+            line-height: 1.2;
+        }
+
+        .card-event {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 25px 20px !important;
+        }
+
+        .btn-custom {
+            background-color: var(--sage);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-custom:hover {
+            background-color: #55632a;
+            color: white;
+        }
+
+        /* Tombol Musik Melayang di Kiri Bawah */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background: var(--gold);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="videoplayback (1).mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="musicBtn" onclick="toggleMusic()" style="display: none;">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <div class="hero">
+        <div class="container" data-sans-serif="fade-up" data-aos-duration="1500">
+            <p class="text-uppercase tracking-wide mb-2" style="letter-spacing: 2px; font-size: 0.8rem;">The Wedding Invitation of</p>
+            <h1 class="cursive">Romeo & Juliet</h1>
+            <p class="my-3 small">Minggu, 31 Mei 2026</p>
+            <button class="btn btn-custom mt-2" onclick="startInvitation()">
+                <i class="fas fa-envelope-open me-2"></i>Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <section class="text-center px-3" id="mempelai">
+            <div class="container">
+                <div class="mb-4" data-aos="fade-down">
+                    <p class="cursive fs-1 mb-1">Assalamu'alaikum Wr. Wb.</p>
+                    <p class="small text-muted">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i ke acara pernikahan kami:</p>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-11 col-sm-5 my-3" data-aos="fade-up" data-aos-duration="1000">
+                        <img src="https://i.ibb.co/9mN7K1Fd/image.jpg" alt="Mempelai Pria" class="couple-img mb-3" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300'">
+                        <h4 class="fw-bold mb-1">Romeo Montague, S.T.</h4>
+                        <p class="text-muted small">Putra dari Bapak Montague<br>& Ibu Montague</p>
+                    </div>
+                    
+                    <div class="col-12 my-1" data-aos="zoom-in">
+                        <span class="cursive" style="font-size: 3rem;">&</span>
+                    </div>
+
+                    <div class="col-11 col-sm-5 my-3" data-aos="fade-up" data-aos-duration="1000">
+                        <img src="https://i.ibb.co/pvSTxXny/image.jpg" alt="Mempelai Wanita" class="couple-img mb-3" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300'">
+                        <h4 class="fw-bold mb-1">Juliet Capulet, S.E.</h4>
+                        <p class="text-muted small">Putri dari Bapak Capulet<br>& Ibu Capulet</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-light text-center py-4" id="countdown-section">
+            <div class="container" data-aos="fade-up">
+                <p class="fw-medium mb-3" style="letter-spacing: 1px;">MENUJU HARI BAHAGIA</p>
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <span id="days">00</span>Hari
+                    </div>
+                    <div class="countdown-item">
+                        <span id="hours">00</span>Jam
+                    </div>
+                    <div class="countdown-item">
+                        <span id="minutes">00</span>Menit
+                    </div>
+                    <div class="countdown-item">
+                        <span id="seconds">00</span>Detik
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="acara" class="px-3">
+            <div class="container">
+                <div class="text-center mb-4" data-aos="fade-down">
+                    <h2 class="section-title">Rangkaian Acara</h2>
+                </div>
+
+                <div class="row justify-content-center g-4">
+                    <div class="col-12 col-md-5" data-aos="fade-up">
+                        <div class="card card-event text-center">
+                            <i class="fas fa-ring fs-2 mb-2" style="color: var(--sage)"></i>
+                            <h4 class="fw-bold">Akad Nikah</h4>
+                            <hr class="w-25 mx-auto my-2">
+                            <p class="mb-1"><i class="far fa-calendar-alt me-2 text-muted"></i>Minggu, 31 Mei 2026</p>
+                            <p class="mb-1"><i class="far fa-clock me-2 text-muted"></i>08.00 - 10.00 WIB</p>
+                            <p class="mb-0 small"><i class="fas fa-map-marker-alt me-2 text-muted"></i>Gedung Pertemuan Estetik, Jakarta</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card card-event text-center">
+                            <i class="fas fa-utensils fs-2 mb-2" style="color: var(--sage)"></i>
+                            <h4 class="fw-bold">Resepsi</h4>
+                            <hr class="w-25 mx-auto my-2">
+                            <p class="mb-1"><i class="far fa-calendar-alt me-2 text-muted"></i>Minggu, 31 Mei 2026</p>
+                            <p class="mb-1"><i class="far fa-clock me-2 text-muted"></i>11.00 - Selesai</p>
+                            <p class="mb-0 small"><i class="fas fa-map-marker-alt me-2 text-muted"></i>Gedung Pertemuan Estetik, Jakarta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4" data-aos="zoom-in">
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-custom w-75">
+                        <i class="fas fa-map-marked-alt me-2"></i>Buka Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-light text-center px-3" id="gift">
+            <div class="container" data-aos="fade-up">
+                <h2 class="section-title mb-2">Wedding Gift</h2>
+                <p class="small text-muted mb-4">Bagi keluarga dan sahabat yang ingin memberikan tanda kasih, dapat mengirimkannya melalui rekening berikut:</p>
+                
+                <div class="row justify-content-center g-3">
+                    <div class="col-11 col-sm-4">
+                        <div class="bg-white p-3 rounded shadow-sm border-bottom border-warning">
+                            <h6 class="mb-1"><i class="fas fa-credit-card me-2 text-primary"></i>Bank BCA</h6>
+                            <p class="fw-bold fs-5 my-1" style="letter-spacing: 1px;">123-456-7890</p>
+                            <p class="text-muted small mb-0">a.n Romeo Montague</p>
+                        </div>
+                    </div>
+                    <div class="col-11 col-sm-4">
+                        <div class="bg-white p-3 rounded shadow-sm border-bottom border-danger">
+                            <h6 class="mb-1"><i class="fas fa-wallet me-2 text-danger"></i>Dana / OVO</h6>
+                            <p class="fw-bold fs-5 my-1" style="letter-spacing: 1px;">0812-3456-7890</p>
+                            <p class="text-muted small mb-0">a.n Juliet Capulet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rsvp" class="px-3">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 card p-4 shadow border-0 rounded-4" data-aos="zoom-in-up">
+                        <h2 class="text-center fs-2 cursive mb-3">Konfirmasi & Ucapan</h2>
+                        <form id="wish-form" onsubmit="submitWish(event)">
+                            <div class="mb-3 text-start">
+                                <label for="name" class="form-label small fw-medium">Nama Anda</label>
+                                <input type="text" class="form-control form-control-sm" id="name" required>
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label for="status" class="form-label small fw-medium">Konfirmasi Kehadiran</label>
+                                <select class="form-select form-select-sm" id="status" required>
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                    <option value="Masih Ragu">Masih Ragu</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label for="message" class="form-label small fw-medium">Ucapan & Doa Restu</label>
+                                <textarea class="form-control form-control-sm" id="message" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-custom w-100 btn-sm py-2">Kirim Ucapan</button>
+                        </form>
+
+                        <div class="mt-4 p-2 bg-light rounded text-start" id="wishes-container" style="max-height: 200px; overflow-y: auto;">
+                            <span class="small fw-bold d-block mb-1"><i class="far fa-comments me-2"></i>Ucapan Doa (Arsip Halaman):</span>
+                            <div id="wishes-list" class="small">
+                                <p class="border-bottom py-2 m-0"><strong>Andi:</strong> Selamat menempuh hidup baru ya Romeo & Juliet! Bahagia selalu 🎉</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-3 bg-dark text-white-50 small">
+            <p class="mb-0" style="font-size: 0.75rem;">© 2026 Romeo & Juliet Wedding. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        const bgMusic = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('musicBtn');
+
+        // Fungsi pemicu saat klik "Buka Undangan"
+        function startInvitation() {
+            document.getElementById('mempelai').scrollIntoView({ behavior: 'smooth' });
+            
+            // Putar musik lewat interaksi user (Aman di HP Android & iOS)
+            bgMusic.play().then(() => {
+                console.log("Musik aktif.");
+            }).catch(err => {
+                console.log("Autoplay ditahan sistem browser.");
+            });
+            musicBtn.style.display = 'flex';
+        }
+
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                bgMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }
+
+        // TIMER COUNTDOWN
+        const weddingDate = new Date("May 31, 2026 08:00:00").getTime();
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown-section").innerHTML = "<p class='fw-bold text-danger m-0'>Acara Sedang/Sudah Berlangsung!</p>";
+            }
+        }, 1000);
+
+        // FUNGSI KIRIM UCAPAN & OTOMATIS REDIRECT KE WHATSAPP KAMU
+        function submitWish(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const status = document.getElementById('status').value;
+            const message = document.getElementById('message').value;
+            const wishesList = document.getElementById('wishes-list');
+
+            // Tampilkan di halaman web undangan secara instan sebagai arsip visual
+            const newWish = document.createElement('div');
+            newWish.className = "border-bottom py-2";
+            newWish.innerHTML = `<strong>${name}</strong> <span class="badge bg-secondary" style="font-size:10px;">${status}</span>:<br>${message}`;
+            wishesList.insertBefore(newWish, wishesList.firstChild);
+
+            // Integrasi Nomor WhatsApp Tujuan (Sudah berformat internasional 62)
+            const nomorWA = "6283143152613";
+            const teksWA = `Halo Romeo & Juliet, berikut adalah konfirmasi kehadiran saya:\n\n` +
+                           `📝 *Nama:* ${name}\n` +
+                           `📌 *Konfirmasi Kehadiran:* ${status}\n` +
+                           `💬 *Ucapan & Doa:* ${message}\n\n` +
+                           `Terima kasih ya!`;
+
+            // Proses membuat link WhatsApp aman lewat browser
+            const linkWA = `https://api.whatsapp.com/send?phone=${nomorWA}&text=${encodeURIComponent(teksWA)}`;
+
+            // Reset form input di halaman web
+            document.getElementById('wish-form').reset();
+            
+            // Buka aplikasi WhatsApp secara otomatis
+            window.open(linkWA, '_blank');
+        }
+    </script>
+</body>
+</html>
